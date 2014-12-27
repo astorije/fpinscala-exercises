@@ -80,4 +80,8 @@ class DataStructureSuite extends FunSuite {
   test("concat") {
     assert(concat(List(List(1), List(2, 3, 4), Nil)) === List(1, 2, 3, 4))
   }
+
+  test("increment") {
+    assert(increment(List(1, 2, 4)) === List(2, 3, 5))
+  }
 }

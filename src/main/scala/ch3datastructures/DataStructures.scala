@@ -140,4 +140,10 @@ object List { // `List` companion object. Contains functions for creating and wo
   // functions we have already defined.
   def concat[A](l: List[List[A]]): List[A] = foldRight(l, Nil: List[A])(append)
     // foldRight(l, List[A]())((el: List[A], acc: List[A]) => append(el, acc))
+
+  // Exercise 3.16
+  // Write a function that transforms a list of integers by adding 1 to each element.
+  // (Reminder: this should be a pure function that returns a new List !)
+  def increment(l: List[Int]): List[Int] =
+    foldRight(l, Nil: List[Int])((el: Int, acc: List[Int]) => Cons(el + 1, acc))
 }
