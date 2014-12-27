@@ -175,4 +175,9 @@ object List { // `List` companion object. Contains functions for creating and wo
   // will return a list instead of a single result, and that list should be inserted
   // into the final resulting list.
   def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = concat(map(as)(f))
+
+  // Exercise 3.21
+  // Use flatMap to implement filter.
+  def filterViaFlatMap[A](as: List[A])(f: A => Boolean): List[A] =
+    flatMap(as)((a: A) => if (f(a)) List(a) else Nil)
 }
