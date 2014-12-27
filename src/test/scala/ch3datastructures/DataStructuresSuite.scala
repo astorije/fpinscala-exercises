@@ -3,6 +3,7 @@ package ch3datastructures
 import org.scalatest.FunSuite
 
 import List._
+import Tree._
 
 class DataStructureSuite extends FunSuite {
 
@@ -126,5 +127,10 @@ class DataStructureSuite extends FunSuite {
     assert(hasSubsequence(List(1, 2, 3, 4), List(1, 2)) === true)
     assert(hasSubsequence(List(1, 2, 3, 4), List(2, 3)) === true)
     assert(hasSubsequence(List(1, 2, 3, 4), List(4)) === true)
+  }
+
+  test("size") {
+    assert(size(Leaf('a')) === 1)
+    assert(size(Branch(Leaf(2), Branch(Branch(Leaf(5), Leaf(6)), Leaf(7)))) === 7)
   }
 }
