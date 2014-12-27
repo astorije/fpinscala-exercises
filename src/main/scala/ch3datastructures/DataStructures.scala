@@ -180,4 +180,12 @@ object List { // `List` companion object. Contains functions for creating and wo
   // Use flatMap to implement filter.
   def filterViaFlatMap[A](as: List[A])(f: A => Boolean): List[A] =
     flatMap(as)((a: A) => if (f(a)) List(a) else Nil)
+
+  // Exercise 3.22
+  // Write a function that accepts two lists and constructs a new list by adding corresponding elements.
+  def addList(l1: List[Int], l2: List[Int]): List[Int] = (l1, l2) match {
+    case (_, Nil) => l1
+    case (Nil, _) => l2
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, addList(t1, t2))
+  }
 }
