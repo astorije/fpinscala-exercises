@@ -113,4 +113,18 @@ class DataStructureSuite extends FunSuite {
     assert(zipWith(List(1, 2, 3), List(4, 5, 6))(List(_, _)) === List(List(1, 4), List(2, 5), List(3, 6)))
     assert(zipWith(List("a", "b"), List("c", "d"))(_ + _) === List("ac", "bd"))
   }
+
+  test("startsWith") {
+    assert(startsWith(List(1, 2, 3), List(1, 2)) === true)
+    assert(startsWith(List(1, 2, 3), List(2, 1)) === false)
+    assert(hasSubsequence(List(1, 2, 3, 4), List(1, 2)) === true)
+    assert(hasSubsequence(List(1, 2, 3, 4), List(2, 3)) === true)
+    assert(hasSubsequence(List(1, 2, 3, 4), List(4)) === true)
+  }
+
+  test("hasSubsequence") {
+    assert(hasSubsequence(List(1, 2, 3, 4), List(1, 2)) === true)
+    assert(hasSubsequence(List(1, 2, 3, 4), List(2, 3)) === true)
+    assert(hasSubsequence(List(1, 2, 3, 4), List(4)) === true)
+  }
 }

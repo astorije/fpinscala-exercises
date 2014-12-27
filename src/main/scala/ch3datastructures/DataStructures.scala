@@ -197,4 +197,25 @@ object List { // `List` companion object. Contains functions for creating and wo
     case (Nil, _) => Nil
     case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
   }
+
+  // Exercise 3.24
+  // Hard: As an example, implement hasSubsequence for checking whether a List
+  // contains another List as a subsequence. You may have some difficulty finding
+  // a concise purely functional implementation that is also efficient. That’s
+  // okay. Implement the function however comes most naturally. We’ll return to
+  // this implementation in chapter 5 and hopefully improve on it. Note: Any two
+  // values x and y can be compared for equality in Scala using the expression x == y.
+  @annotation.tailrec
+  def startsWith[A](l: List[A], sub: List[A]): Boolean = (l, sub) match {
+    case (_, Nil) => true
+    case (Cons(h1, t1), Cons(h2, t2)) if h1 == h2 => startsWith(t1, t2)
+    case _ => false
+  }
+
+  @annotation.tailrec
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = sup match {
+    case Nil => false
+    case _ if startsWith(sup, sub) => true
+    case Cons(_, t) => hasSubsequence(t, sub)
+  }
 }
