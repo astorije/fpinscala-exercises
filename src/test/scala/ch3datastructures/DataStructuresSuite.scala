@@ -42,4 +42,8 @@ class DataStructureSuite extends FunSuite {
     assert(length(List(1, 2, 3)) === 3)
     assert(length(Nil) === 0)
   }
+
+  test("foldLeft") {
+    assert(foldLeft(List(1, 2, 3), 0)(_ + _) === 6)
+  }
 }
