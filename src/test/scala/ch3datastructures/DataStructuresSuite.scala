@@ -60,4 +60,8 @@ class DataStructureSuite extends FunSuite {
     assert(lengthLeft(List(1, 2, 3)) === 3)
     assert(lengthLeft(Nil) === 0)
   }
+
+  test("reverse") {
+    assert(reverse(List(1, 2, 3)) === List(3, 2, 1))
+  }
 }

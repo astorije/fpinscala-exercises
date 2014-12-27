@@ -105,4 +105,10 @@ object List { // `List` companion object. Contains functions for creating and wo
   def sumLeft(ints: List[Int]): Int = foldLeft(ints, 0)(_ + _)
   def productLeft(ds: List[Double]): Double = foldLeft(ds, 1.0)(_ * _)
   def lengthLeft[A](as: List[A]): Int = foldLeft(as, 0)((acc, _) => acc + 1)
+
+  // Exercise 3.12
+  // Write a function that returns the reverse of a list (given List(1, 2, 3) it
+  // returns List(3, 2, 1)). See if you can write it using a fold.
+  def reverse[A](l: List[A]): List[A] =
+    foldLeft(l, List[A]())((acc, el) => Cons(el, acc))
 }
