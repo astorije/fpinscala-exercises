@@ -133,4 +133,11 @@ object List { // `List` companion object. Contains functions for creating and wo
   def appendFold[A](a1: List[A], a2: List[A]): List[A] =
     // foldLeft(reverse(a1), a2)((b: List[A], a: A) => Cons(a, b))
     foldRight(a1, a2)((a: A, b: List[A]) => Cons(a, b))
+
+  // Exercise 3.15
+  // Hard: Write a function that concatenates a list of lists into a single list.
+  // Its runtime should be linear in the total length of all lists. Try to use
+  // functions we have already defined.
+  def concat[A](l: List[List[A]]): List[A] = foldRight(l, Nil: List[A])(append)
+    // foldRight(l, List[A]())((el: List[A], acc: List[A]) => append(el, acc))
 }

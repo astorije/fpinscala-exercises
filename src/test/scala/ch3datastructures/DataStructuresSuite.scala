@@ -76,4 +76,8 @@ class DataStructureSuite extends FunSuite {
   test("appendFold") {
     assert(appendFold(List(1, 2, 3), List(4, 5)) === List(1, 2, 3, 4, 5))
   }
+
+  test("concat") {
+    assert(concat(List(List(1), List(2, 3, 4), Nil)) === List(1, 2, 3, 4))
+  }
 }
