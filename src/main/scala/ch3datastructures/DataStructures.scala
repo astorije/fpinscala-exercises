@@ -188,4 +188,13 @@ object List { // `List` companion object. Contains functions for creating and wo
     case (Nil, _) => l2
     case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, addList(t1, t2))
   }
+
+  // Exercise 3.23
+  // Generalize the function you just wrote so that it’s not specific to integers or addition.
+  // Name your generalized function zipWith.
+  def zipWith[A, B, C](l1: List[A], l2: List[B])(f: (A, B) => C): List[C] = (l1, l2) match {
+    case (_, Nil) => Nil
+    case (Nil, _) => Nil
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
+  }
 }

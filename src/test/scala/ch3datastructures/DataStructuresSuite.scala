@@ -108,4 +108,9 @@ class DataStructureSuite extends FunSuite {
   test("addList") {
     assert(addList(List(1, 2, 3), List(4, 5, 6)) === List(5, 7, 9))
   }
+
+  test("zipWith") {
+    assert(zipWith(List(1, 2, 3), List(4, 5, 6))(List(_, _)) === List(List(1, 4), List(2, 5), List(3, 6)))
+    assert(zipWith(List("a", "b"), List("c", "d"))(_ + _) === List("ac", "bd"))
+  }
 }
