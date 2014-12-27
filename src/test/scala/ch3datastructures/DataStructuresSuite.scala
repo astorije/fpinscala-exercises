@@ -84,4 +84,8 @@ class DataStructureSuite extends FunSuite {
   test("increment") {
     assert(increment(List(1, 2, 4)) === List(2, 3, 5))
   }
+
+  test("doubleToString") {
+    assert(doubleToString(List(1, 2, 5)) === List("1.0", "2.0", "5.0"))
+  }
 }

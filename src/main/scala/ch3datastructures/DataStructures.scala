@@ -146,4 +146,13 @@ object List { // `List` companion object. Contains functions for creating and wo
   // (Reminder: this should be a pure function that returns a new List !)
   def increment(l: List[Int]): List[Int] =
     foldRight(l, Nil: List[Int])((el: Int, acc: List[Int]) => Cons(el + 1, acc))
+
+  // Exercise 3.17
+  // Write a function that turns each value in a List[Double] into a String. You
+  // can use the expression d.toString to convert some d: Double to a String.
+  def doubleToString(l: List[Double]): List[String] =
+    foldRight(l, Nil: List[String])(
+      (el: Double, acc: List[String]) => Cons(el.toString, acc)
+    )
+
 }
