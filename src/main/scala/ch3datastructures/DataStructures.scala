@@ -20,6 +20,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
 
+  def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
+    case Nil => a2
+    case Cons(h,t) => Cons(h, append(t, a2))
+  }
+
   // Exercise 3.1
   // What will be the result of the following match expression?
   // Result: 3 (1 + 2)
@@ -122,4 +127,10 @@ object List { // `List` companion object. Contains functions for creating and wo
 
   def foldRightViaFoldLeft[A,B](as: List[A], z: B)(f: (A, B) => B): B =
     foldLeft(as, z)((b: B, a: A) => f(a, b))
+
+  // Exercise 3.14
+  // Implement append in terms of either foldLeft or foldRight.
+  def appendFold[A](a1: List[A], a2: List[A]): List[A] =
+    // foldLeft(reverse(a1), a2)((b: List[A], a: A) => Cons(a, b))
+    foldRight(a1, a2)((a: A, b: List[A]) => Cons(a, b))
 }
