@@ -169,4 +169,10 @@ object List { // `List` companion object. Contains functions for creating and wo
       if (f(el)) Cons(el, acc)
       else acc
     )
+
+  // Exercise 3.20
+  // Write a function flatMap that works like map except that the function given
+  // will return a list instead of a single result, and that list should be inserted
+  // into the final resulting list.
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = concat(map(as)(f))
 }
