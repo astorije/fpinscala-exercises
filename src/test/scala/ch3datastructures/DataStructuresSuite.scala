@@ -46,4 +46,18 @@ class DataStructureSuite extends FunSuite {
   test("foldLeft") {
     assert(foldLeft(List(1, 2, 3), 0)(_ + _) === 6)
   }
+
+  test("sumLeft") {
+    assert(sumLeft(List(12, 13, 14)) === 39)
+  }
+
+  test("productLeft") {
+    assert(productLeft(List(2, 4, 6)) === 48)
+    assert(productLeft(List(2, 4, 0)) === 0)
+  }
+
+  test("lengthLeft") {
+    assert(lengthLeft(List(1, 2, 3)) === 3)
+    assert(lengthLeft(Nil) === 0)
+  }
 }

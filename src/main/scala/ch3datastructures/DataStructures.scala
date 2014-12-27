@@ -98,4 +98,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Nil => z
     case Cons(h, t) => foldLeft(t, f(z, h))(f)
   }
+
+  // Exercise 3.11
+  // Write sum, product, and a function to compute the length of a list using
+  // foldLeft.
+  def sumLeft(ints: List[Int]): Int = foldLeft(ints, 0)(_ + _)
+  def productLeft(ds: List[Double]): Double = foldLeft(ds, 1.0)(_ * _)
+  def lengthLeft[A](as: List[A]): Int = foldLeft(as, 0)((acc, _) => acc + 1)
 }
