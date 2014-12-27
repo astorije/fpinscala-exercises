@@ -92,4 +92,8 @@ class DataStructureSuite extends FunSuite {
   test("map") {
     assert(map(List(1, 2, 3))(_ * 2) === List(2, 4, 6))
   }
+
+  test("filter") {
+    assert(filter(List(1, 2, 3, 4, 5))(_ % 2 == 0) === List(2, 4))
+  }
 }

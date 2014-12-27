@@ -160,4 +160,13 @@ object List { // `List` companion object. Contains functions for creating and wo
   // maintaining the structure of the list.
   def map[A,B](as: List[A])(f: A => B): List[B] =
     foldRight(as, Nil: List[B])((el: A, acc: List[B]) => Cons(f(el), acc))
+
+  // Exercise 3.19
+  // Write a function filter that removes elements from a list unless they satisfy
+  // a given predicate. Use it to remove all odd numbers from a List[Int].
+  def filter[A](as: List[A])(f: A => Boolean): List[A] =
+    foldRight(as, Nil: List[A])((el: A, acc: List[A]) =>
+      if (f(el)) Cons(el, acc)
+      else acc
+    )
 }
