@@ -111,4 +111,15 @@ object List { // `List` companion object. Contains functions for creating and wo
   // returns List(3, 2, 1)). See if you can write it using a fold.
   def reverse[A](l: List[A]): List[A] =
     foldLeft(l, List[A]())((acc, el) => Cons(el, acc))
+
+  // Exercise 3.13
+  // Hard: Can you write foldLeft in terms of foldRight? How about the other way
+  // around? Implementing foldRight via foldLeft is useful because it lets us
+  // implement foldRight tail-recursively, which means it works even for large
+  // lists without overflowing the stack.
+  def foldLeftViaFoldRight[A, B](as: List[A], z: B)(f: (B, A) => B): B =
+    foldRight(as, z)((a: A, b: B) => f(b, a))
+
+  def foldRightViaFoldLeft[A,B](as: List[A], z: B)(f: (A, B) => B): B =
+    foldLeft(as, z)((b: B, a: A) => f(a, b))
 }

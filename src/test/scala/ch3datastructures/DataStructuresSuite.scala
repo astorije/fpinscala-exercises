@@ -64,4 +64,12 @@ class DataStructureSuite extends FunSuite {
   test("reverse") {
     assert(reverse(List(1, 2, 3)) === List(3, 2, 1))
   }
+
+  test("foldLeftViaFoldRight") {
+    assert(foldLeftViaFoldRight(List(1, 2, 3), 0)(_ + _) === 6)
+  }
+
+  test("foldRightViaFoldLeft") {
+    assert(foldRightViaFoldLeft(List(1, 2, 3), 0)(_ + _) === 6)
+  }
 }
