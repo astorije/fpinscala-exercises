@@ -88,4 +88,8 @@ class DataStructureSuite extends FunSuite {
   test("doubleToString") {
     assert(doubleToString(List(1, 2, 5)) === List("1.0", "2.0", "5.0"))
   }
+
+  test("map") {
+    assert(map(List(1, 2, 3))(_ * 2) === List(2, 4, 6))
+  }
 }

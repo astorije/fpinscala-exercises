@@ -155,4 +155,9 @@ object List { // `List` companion object. Contains functions for creating and wo
       (el: Double, acc: List[String]) => Cons(el.toString, acc)
     )
 
+  // Exercise 3.18
+  // Write a function map that generalizes modifying each element in a list while
+  // maintaining the structure of the list.
+  def map[A,B](as: List[A])(f: A => B): List[B] =
+    foldRight(as, Nil: List[B])((el: A, acc: List[B]) => Cons(f(el), acc))
 }
