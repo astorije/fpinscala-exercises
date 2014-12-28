@@ -3,9 +3,8 @@ package ch3datastructures
 import org.scalatest.FunSuite
 
 import List._
-import Tree._
 
-class DataStructureSuite extends FunSuite {
+class ListSuite extends FunSuite {
 
   // Exercise 3.1
   test("val x") {
@@ -127,19 +126,5 @@ class DataStructureSuite extends FunSuite {
     assert(hasSubsequence(List(1, 2, 3, 4), List(1, 2)) === true)
     assert(hasSubsequence(List(1, 2, 3, 4), List(2, 3)) === true)
     assert(hasSubsequence(List(1, 2, 3, 4), List(4)) === true)
-  }
-
-  test("size") {
-    assert(size(Leaf('a')) === 1)
-    assert(size(Branch(Leaf(2), Branch(Branch(Leaf(5), Leaf(6)), Leaf(7)))) === 7)
-  }
-
-  test("maximum") {
-    assert(maximum(Leaf(5)) === 5)
-    assert(maximum(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 12)
-  }
-
-  test("depth") {
-    assert(depth(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 3)
   }
 }
