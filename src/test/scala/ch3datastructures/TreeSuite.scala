@@ -19,4 +19,11 @@ class TreeSuite extends FunSuite {
   test("depth") {
     assert(depth(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 3)
   }
+
+  // Exercise 3.28
+  test("map") {
+    assert(
+      map(Branch(Leaf(4), Branch(Leaf(12), Leaf(7))))(_ + 2) ===
+      Branch(Leaf(6), Branch(Leaf(14), Leaf(9))))
+  }
 }
