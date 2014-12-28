@@ -29,4 +29,28 @@ class TreeSuite extends FunSuite {
       map(Branch(Leaf(4), Branch(Leaf(12), Leaf(7))))(_ + 2) ===
       Branch(Leaf(6), Branch(Leaf(14), Leaf(9))))
   }
+
+  // Exercise 3.29
+  test("sizeViaFold") {
+    assert(sizeViaFold(Leaf('a')) === 1)
+    assert(sizeViaFold(Branch(Leaf(2), Branch(Branch(Leaf(5), Leaf(6)), Leaf(7)))) === 7)
+  }
+
+  // Exercise 3.29
+  test("maximumViaFold") {
+    assert(maximumViaFold(Leaf(5)) === 5)
+    assert(maximumViaFold(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 12)
+  }
+
+  // Exercise 3.29
+  test("depthViaFold") {
+    assert(depthViaFold(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 2)
+  }
+
+  // Exercise 3.29
+  test("mapViaFold") {
+    assert(
+      mapViaFold(Branch(Leaf(4), Branch(Leaf(12), Leaf(7))))(_ + 2) ===
+      Branch(Leaf(6), Branch(Leaf(14), Leaf(9))))
+  }
 }
