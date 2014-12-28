@@ -133,4 +133,9 @@ class DataStructureSuite extends FunSuite {
     assert(size(Leaf('a')) === 1)
     assert(size(Branch(Leaf(2), Branch(Branch(Leaf(5), Leaf(6)), Leaf(7)))) === 7)
   }
+
+  test("maximum") {
+    assert(maximum(Leaf(5)) === 5)
+    assert(maximum(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 12)
+  }
 }
