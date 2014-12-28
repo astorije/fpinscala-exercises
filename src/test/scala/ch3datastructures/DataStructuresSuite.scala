@@ -138,4 +138,8 @@ class DataStructureSuite extends FunSuite {
     assert(maximum(Leaf(5)) === 5)
     assert(maximum(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 12)
   }
+
+  test("depth") {
+    assert(depth(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 3)
+  }
 }
