@@ -20,7 +20,7 @@ class TreeSuite extends FunSuite {
 
   // Exercise 3.27
   test("depth") {
-    assert(depth(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 3)
+    assert(depth(Branch(Leaf(4), Branch(Leaf(12), Leaf(7)))) === 2)
   }
 
   // Exercise 3.28
