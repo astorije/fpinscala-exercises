@@ -2,6 +2,8 @@ package ch4errorhandling
 
 import org.scalatest.FunSuite
 
+import Option._
+
 class OptionSuite extends FunSuite {
 
   // Exercise 4.1
@@ -33,5 +35,12 @@ class OptionSuite extends FunSuite {
     assert(Some(42).filter(_ > 0) === Some(42))
     assert(Some(-42).filter(_ > 0) === None)
     assert((None: Option[Int]).filter(_ > 0) === None)
+  }
+
+  test("variance") {
+    val s = Seq(1.0, 2.0, 3.0, 4.0, 5.0)
+    assert(mean(s) === Some(3.0))
+    assert(variance(s) === Some(2.0))
+    assert(variance(Seq()) === None)
   }
 }
