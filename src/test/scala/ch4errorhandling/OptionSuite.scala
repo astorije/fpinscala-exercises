@@ -37,6 +37,7 @@ class OptionSuite extends FunSuite {
     assert((None: Option[Int]).filter(_ > 0) === None)
   }
 
+  // Exercise 4.2
   test("variance") {
     val s = Seq(1.0, 2.0, 3.0, 4.0, 5.0)
     assert(mean(s) === Some(3.0))
