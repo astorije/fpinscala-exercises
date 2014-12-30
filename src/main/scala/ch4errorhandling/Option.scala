@@ -70,4 +70,16 @@ object Option {
   // function. If either Option value is None, then the return value is too.
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] =
     a.flatMap(va => b.map(vb => f(va, vb)))
+
+  // EXERCISE 4.4
+  // Write a function sequence that combines a list of Option s into one Option
+  // containing a list of all the Some values in the original list. If the
+  // original list contains None even once, the result of the function should be
+  // None; otherwise the result should be Some with a list of all the values.
+  def sequence[A](a: List[Option[A]]): Option[List[A]] =
+    a.foldRight[Option[List[A]]](Some(Nil))((oa, ob) => map2(oa, ob)(_ :: _))
+    // a match {
+    //   case Nil => Some(Nil)
+    //   case h :: t => h.flatMap(vh => sequence(t).map(l => vh :: l))
+    // }
 }
