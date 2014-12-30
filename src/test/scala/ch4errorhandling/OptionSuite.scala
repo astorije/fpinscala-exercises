@@ -43,4 +43,10 @@ class OptionSuite extends FunSuite {
     assert(variance(s) === Some(2.0))
     assert(variance(Seq()) === None)
   }
+
+  // Exercise 4.3
+  test("map2") {
+    assert(map2(Some(3), Some(5))(_ + _) === Some(8))
+    assert(map2(Some(42), None)(_ + _) === None)
+  }
 }
