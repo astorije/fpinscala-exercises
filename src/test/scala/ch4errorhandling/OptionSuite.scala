@@ -56,4 +56,16 @@ class OptionSuite extends FunSuite {
     assert(sequence(List(Some(1), Some(2), Some(3))) === Some(List(1, 2, 3)))
     assert(sequence(List(Some(1), None, Some(3))) === None)
   }
+
+  // Exercise 4.5
+  test("traverse") {
+    assert(traverse(List("1", "2", "3"))(s => Try { s.toInt }) === Some(List(1, 2, 3)))
+    assert(traverse(List("1", "b", "3"))(s => Try { s.toInt }) === None)
+  }
+
+  // Exercise 4.5
+  test("sequenceViaTraverse") {
+    assert(sequenceViaTraverse(List(Some(1), Some(2), Some(3))) === Some(List(1, 2, 3)))
+    assert(sequenceViaTraverse(List(Some(1), None, Some(3))) === None)
+  }
 }
