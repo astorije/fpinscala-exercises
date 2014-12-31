@@ -30,4 +30,16 @@ class EitherSuite extends FunSuite {
     assert(Right(2).map2(Left("Error"): Either[String, Int])(_ * _) === Left("Error"))
     assert((Left("Error"): Either[String, Int]).map2(Right(4))(_ * _) === Left("Error"))
   }
+
+  // Exercise 4.7
+  test("sequence") {
+    assert(sequence(List(Right(1), Right(2), Right(3))) === Right(List(1, 2, 3)))
+    assert(sequence(List(Right(1), Left("Error"), Right(3))) === Left("Error"))
+  }
+
+  // Exercise 4.7
+  test("traverse") {
+    assert(traverse(List("1", "2", "3"))(s => Try { s.toInt }) === Right(List(1, 2, 3)))
+    assert(traverse(List("1", "b", "3"))(s => Try { s.toInt }) === Left()) // FIXME: How can I test this?
+  }
 }

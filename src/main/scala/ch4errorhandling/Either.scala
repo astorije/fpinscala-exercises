@@ -33,4 +33,20 @@ case class Right[+A](value: A) extends Either[Nothing, A]
 
 object Either {
 
+  def Try[A](a: => A): Either[Exception, A] =
+    try Right(a)
+    catch { case e: Exception => Left(e) }
+
+  // Exercise 4.7
+  // Implement sequence and traverse for Either. These should return the first
+  // error that’s encountered, if there is one.
+  def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] =
+    es.foldRight[Either[E, List[A]]](Right(Nil))(
+      (e: Either[E, A], acc: Either[E, List[A]]) => e.map2(acc)(_ :: _)
+    )
+
+  def traverse[E, A, B](as: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
+    as.foldRight[Either[E, List[B]]](Right(Nil))(
+      (a: A, acc: Either[E, List[B]]) => f(a).map2(acc)(_ :: _)
+    )
 }
