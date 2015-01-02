@@ -20,4 +20,9 @@ class StreamSuite extends FunSuite {
   test("drop") {
     assert(Stream(1, 2, 3).drop(2).toList === List(3))
   }
+
+  // Exercise 5.3
+  test("takeWhile") {
+    assert(Stream(1, 2, 3, 4).takeWhile(_ < 3).toList === List(1, 2))
+  }
 }
