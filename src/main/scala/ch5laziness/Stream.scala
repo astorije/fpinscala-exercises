@@ -8,6 +8,11 @@ sealed trait Stream[+A] {
     case Cons(h, t) => Some(h())
   }
 
+  def foldRight[B](z: => B)(f: (A, => B) => B): B = this match {
+    case Cons(h,t) => f(h(), t().foldRight(z)(f))
+    case _ => z
+  }
+
   // Exercise 5.1
   // Write a function to convert a Stream to a List, which will force its
   // evaluation and let you look at it in the REPL. You can convert to the
@@ -40,6 +45,18 @@ sealed trait Stream[+A] {
     case Cons(h, t) if p(h()) => cons(h(), t() takeWhile p)
     case _ => empty
   }
+
+  // Exercise 5.4
+  // Implement forAll, which checks that all elements in the Stream match a given
+  // predicate. Your implementation should terminate the traversal as soon as it
+  // encounters a nonmatching value.
+  def forAll(p: A => Boolean): Boolean =
+    foldRight(true)((h, r) => p(h) && r)
+    // this match {
+    //   case Cons(h, _) if !p(h()) => false
+    //   case Cons(_, t) => t() forAll p
+    //   case _ => true
+    // }
 }
 
 case object Empty extends Stream[Nothing]

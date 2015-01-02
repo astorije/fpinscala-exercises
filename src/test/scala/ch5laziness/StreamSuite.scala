@@ -25,4 +25,10 @@ class StreamSuite extends FunSuite {
   test("takeWhile") {
     assert(Stream(1, 2, 3, 4).takeWhile(_ < 3).toList === List(1, 2))
   }
+
+  // Exercise 5.4
+  test("forAll") {
+    assert(Stream(1, 2, 3).forAll(_ > 0) === true)
+    assert(Stream(1, 2, -3).forAll(_ > 0) === false)
+  }
 }
