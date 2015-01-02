@@ -57,6 +57,11 @@ sealed trait Stream[+A] {
     //   case Cons(_, t) => t() forAll p
     //   case _ => true
     // }
+
+  // Exercise 5.5
+  // Use foldRight to implement takeWhile.
+  def takeWhileViaFoldRight(p: A => Boolean): Stream[A] =
+    foldRight[Stream[A]](empty)((h, t) => if (p(h)) cons(h, t) else empty)
 }
 
 case object Empty extends Stream[Nothing]

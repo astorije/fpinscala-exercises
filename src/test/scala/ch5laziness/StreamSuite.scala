@@ -31,4 +31,9 @@ class StreamSuite extends FunSuite {
     assert(Stream(1, 2, 3).forAll(_ > 0) === true)
     assert(Stream(1, 2, -3).forAll(_ > 0) === false)
   }
+
+  // Exercise 5.5
+  test("takeWhileViaFoldRight") {
+    assert(Stream(1, 2, 3, 4).takeWhileViaFoldRight(_ < 3).toList === List(1, 2))
+  }
 }
