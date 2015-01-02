@@ -10,4 +10,14 @@ class StreamSuite extends FunSuite {
   test("toList") {
     assert(Stream(1, 2, 3).toList === List(1, 2, 3))
   }
+
+  // Exercise 5.2
+  test("take") {
+    assert(Stream(1, 2, 3).take(2).toList === List(1, 2))
+  }
+
+  // Exercise 5.2
+  test("drop") {
+    assert(Stream(1, 2, 3).drop(2).toList === List(3))
+  }
 }
