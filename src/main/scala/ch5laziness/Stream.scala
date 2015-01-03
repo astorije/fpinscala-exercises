@@ -121,6 +121,18 @@ sealed trait Stream[+A] {
       case (Empty, Cons(h2, t2)) => Some(((None, Some(h2())), (empty, t2())))
       case _ => None
     }
+
+  // Exercise 5.14
+  // Hard: Implement startsWith using functions you’ve written. It should check
+  // if one Stream is a prefix of another. For instance,
+  // Stream(1,2,3) startsWith Stream(1,2) would be true.
+  def startsWith[A](s: Stream[A]): Boolean = {
+    zipAllViaUnfold(s) takeWhile {
+      case (a, b) => b != None
+    } forAll {
+      case (a, b) => a == b
+    }
+  }
 }
 
 case object Empty extends Stream[Nothing]

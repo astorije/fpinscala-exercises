@@ -138,4 +138,13 @@ class StreamSuite extends FunSuite {
     assert(Stream(1, 2).zipAllViaUnfold(empty).toList === List((Some(1), None), (Some(2), None)))
     assert(empty.zipAllViaUnfold(empty).toList === Nil)
   }
+
+  // Exercise 5.14
+  test("startsWith") {
+    assert(Stream(1,2,3).startsWith(Stream(1,2)) === true)
+    assert(Stream(1,2,3).startsWith(Stream(42)) === false)
+    assert(empty.startsWith(Stream(42)) === false)
+    assert(Stream(1,2,3).startsWith(empty) === true)
+    assert(empty.startsWith(empty) === true)
+  }
 }
