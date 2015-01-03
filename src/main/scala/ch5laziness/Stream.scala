@@ -102,6 +102,8 @@ object Stream {
   def apply[A](as: A*): Stream[A] =
     if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
 
+  val ones: Stream[Int] = Stream.cons(1, ones)
+
   // Exercise 5.8
   // Generalize ones slightly to the function constant, which returns an infinite
   // Stream of a given value.
@@ -129,4 +131,13 @@ object Stream {
     case None => empty
     case Some((a, s)) => cons(a, unfold(s)(f))
   }
+
+  // Exercise 5.12
+  // Write fibs, from, constant, and ones in terms of unfold.
+  def fibsViaUnfold: Stream[Int] = unfold((0, 1)) {
+    case (i, j) => Some((i, (j, i + j)))
+  }
+  def fromViaUnfold(n: Int): Stream[Int] = unfold(n)(i => Some((i, i + 1)))
+  def constantViaUnfold[A](a: A): Stream[A] = unfold(a)(_ => Some((a, a)))
+  val onesViaUnfold: Stream[Int] = unfold(1)(_ => Some((1, 1)))
 }

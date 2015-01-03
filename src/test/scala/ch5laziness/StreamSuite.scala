@@ -86,4 +86,24 @@ class StreamSuite extends FunSuite {
   test("unfold") {
     assert(unfold(1)(i => Some(i, i + 1)).take(3).toList === List(1, 2, 3))
   }
+
+  // Exercise 5.12
+  test("fibsViaUnfold") {
+    assert(fibsViaUnfold.take(7).toList === List(0, 1, 1, 2, 3, 5, 8))
+  }
+
+  // Exercise 5.12
+  test("fromViaUnfold") {
+    assert(fromViaUnfold(5).take(3).toList === List(5, 6, 7))
+  }
+
+  // Exercise 5.12
+  test("constantViaUnfold") {
+    assert(constantViaUnfold(42).take(3).toList === List(42, 42, 42))
+  }
+
+  // Exercise 5.12
+  test("onesViaUnfold") {
+    assert(onesViaUnfold.take(3).toList === List(1, 1, 1))
+  }
 }
