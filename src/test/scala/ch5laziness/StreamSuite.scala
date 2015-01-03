@@ -66,4 +66,9 @@ class StreamSuite extends FunSuite {
   test("flatMap") {
     assert(Stream(1, 2, 3).flatMap(Stream(0, _)).toList === List(0, 1, 0, 2, 0, 3))
   }
+
+  // Exercise 5.8
+  test("constant") {
+    assert(constant(42).take(3).toList === List(42, 42, 42))
+  }
 }

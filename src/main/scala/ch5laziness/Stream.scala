@@ -102,4 +102,8 @@ object Stream {
   def apply[A](as: A*): Stream[A] =
     if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
 
+  // Exercise 5.8
+  // Generalize ones slightly to the function constant, which returns an infinite
+  // Stream of a given value.
+  def constant[A](a: A): Stream[A] = cons(a, constant(a))
 }
