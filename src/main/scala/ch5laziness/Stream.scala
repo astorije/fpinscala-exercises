@@ -111,4 +111,13 @@ object Stream {
   // Write a function that generates an infinite stream of integers, starting
   // from n, then n + 1, n + 2, and so on.
   def from(n: Int): Stream[Int] = cons(n, from(n + 1))
+
+  // Exercise 5.10
+  // Write a function fibs that generates the infinite stream of Fibonacci numbers:
+  // 0, 1, 1, 2, 3, 5, 8, and so on.
+  def fibs: Stream[Int] = {
+    def loop(previous: Int, current: Int): Stream[Int] =
+      cons(previous, loop(current, previous + current))
+    loop(0, 1)
+  }
 }
