@@ -106,4 +106,36 @@ class StreamSuite extends FunSuite {
   test("onesViaUnfold") {
     assert(onesViaUnfold.take(3).toList === List(1, 1, 1))
   }
+
+  // Exercise 5.13
+  test("mapViaUnfold") {
+    assert(Stream(1, 2, 3).mapViaUnfold(_ * 2).toList === List(2, 4, 6))
+    assert(empty[Int].mapViaUnfold(_ * 2).toList === Nil)
+  }
+
+  // Exercise 5.13
+  test("takeViaUnfold") {
+    assert(Stream(1, 2, 3).takeViaUnfold(2).toList === List(1, 2))
+    assert(Stream(1, 2, 3).takeViaUnfold(5).toList === List(1, 2, 3))
+    assert(Stream(1, 2, 3).takeViaUnfold(0).toList === Nil)
+  }
+
+  // Exercise 5.13
+  test("takeWhileViaUnfold") {
+    assert(Stream(1, 2, 3, 4).takeWhileViaUnfold(_ < 3).toList === List(1, 2))
+  }
+
+  // Exercise 5.13
+  test("zipWithViaUnfold") {
+    assert(Stream(1, 2).zipWithViaUnfold(Stream(3, 4))(_ + _).toList === List(4, 6))
+    assert(Stream(1, 2).zipWithViaUnfold(empty)(_ + _).toList === Nil)
+    assert(empty[Int].zipWithViaUnfold(Stream(3, 4))(_ + _).toList === Nil)
+  }
+
+  // Exercise 5.13
+  test("zipAllViaUnfold") {
+    assert(Stream(1, 2).zipAllViaUnfold(Stream(4)).toList === List((Some(1), Some(4)), (Some(2), None)))
+    assert(Stream(1, 2).zipAllViaUnfold(empty).toList === List((Some(1), None), (Some(2), None)))
+    assert(empty.zipAllViaUnfold(empty).toList === Nil)
+  }
 }
