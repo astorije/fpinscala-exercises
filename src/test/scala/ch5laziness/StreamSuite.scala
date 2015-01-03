@@ -36,4 +36,10 @@ class StreamSuite extends FunSuite {
   test("takeWhileViaFoldRight") {
     assert(Stream(1, 2, 3, 4).takeWhileViaFoldRight(_ < 3).toList === List(1, 2))
   }
+
+  // Exercise 5.6
+  test("headOptionViaFoldRight") {
+    assert(Stream(1, 2, 3).headOptionViaFoldRight === Some(1))
+    assert(empty.headOptionViaFoldRight === None)
+  }
 }
