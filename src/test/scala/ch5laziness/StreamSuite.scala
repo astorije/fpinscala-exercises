@@ -42,4 +42,28 @@ class StreamSuite extends FunSuite {
     assert(Stream(1, 2, 3).headOptionViaFoldRight === Some(1))
     assert(empty.headOptionViaFoldRight === None)
   }
+
+  // Exercise 5.7
+  test("map") {
+    assert(Stream(1, 2, 3).map(_ * 2).toList === List(2, 4, 6))
+    assert(empty[Int].map(_ * 2).toList === Nil)
+  }
+
+  // Exercise 5.7
+  test("filter") {
+    assert(Stream(1, 2, 3).filter(_ % 2 == 0).toList === List(2))
+    assert(empty[Int].filter(_ > 0).toList === Nil)
+  }
+
+  // Exercise 5.7
+  test("append") {
+    assert(Stream(1, 2).append(Stream(3, 4)).toList === List(1, 2, 3, 4))
+    assert(empty.append(Stream(0)).toList === List(0))
+    assert(Stream(1, 2).append(empty).toList === List(1, 2))
+  }
+
+  // Exercise 5.7
+  test("flatMap") {
+    assert(Stream(1, 2, 3).flatMap(Stream(0, _)).toList === List(0, 1, 0, 2, 0, 3))
+  }
 }
