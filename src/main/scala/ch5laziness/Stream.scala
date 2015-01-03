@@ -106,4 +106,9 @@ object Stream {
   // Generalize ones slightly to the function constant, which returns an infinite
   // Stream of a given value.
   def constant[A](a: A): Stream[A] = cons(a, constant(a))
+
+  // Exercise 5.9
+  // Write a function that generates an infinite stream of integers, starting
+  // from n, then n + 1, n + 2, and so on.
+  def from(n: Int): Stream[Int] = cons(n, from(n + 1))
 }
