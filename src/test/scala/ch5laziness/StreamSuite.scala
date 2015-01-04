@@ -147,4 +147,10 @@ class StreamSuite extends FunSuite {
     assert(Stream(1,2,3).startsWith(empty) === true)
     assert(empty.startsWith(empty) === true)
   }
+
+  // Exercise 5.15
+  test("tails") {
+    assert(Stream(1,2,3).tails.map(_.toList).toList === List(List(1,2,3), List(2,3), List(3), List()))
+    assert(empty[Any].tails.map(_.toList).toList === List(Nil))
+  }
 }
