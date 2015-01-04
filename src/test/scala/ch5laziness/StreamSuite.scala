@@ -153,4 +153,9 @@ class StreamSuite extends FunSuite {
     assert(Stream(1,2,3).tails.map(_.toList).toList === List(List(1,2,3), List(2,3), List(3), List()))
     assert(empty[Any].tails.map(_.toList).toList === List(Nil))
   }
+
+  // Exercise 5.16
+  test("scanRight") {
+    assert(Stream(1,2,3).scanRight(0)(_ + _).toList === List(6,5,3,0))
+  }
 }
