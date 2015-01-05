@@ -29,4 +29,9 @@ class StateSuite extends FunSuite {
   test("double3") {
     assert(double3(RNG.Simple(42L))._1 === (0.007524831686168909, 0.5967354848980904, 0.15846728393808007))
   }
+
+  // Exercise 6.4
+  test("ints") {
+    assert(ints(3)(RNG.Simple(42L))._1 === List(16159453, -1281479697, -340305902))
+  }
 }
