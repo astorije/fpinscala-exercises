@@ -9,4 +9,9 @@ class StateSuite extends FunSuite {
   test("nonNegativeInt") {
     assert(nonNegativeInt(RNG.Simple(42L)) === (16159453, Simple(1059025964525L)))
   }
+
+  // Exercise 6.2
+  test("double") {
+    assert(double(RNG.Simple(42L))._1 === 0.007524831686168909)
+  }
 }
