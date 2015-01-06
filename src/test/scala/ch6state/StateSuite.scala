@@ -45,4 +45,14 @@ class StateSuite extends FunSuite {
     assert(map2(unit(1), unit(2))(_ + _)(RNG.Simple(0L))._1 === 3)
     assert(map2(nonNegativeInt, double)((_, _))(RNG.Simple(42L)) === intDouble(RNG.Simple(42L)))
   }
+
+  // Exercise 6.7
+  test("sequence") {
+    assert(sequence(List(unit(1), unit(2), unit(3)))(RNG.Simple(0L))._1 === List(1, 2, 3))
+  }
+
+  // Exercise 6.7
+  test("intsRand") {
+    assert(intsRand(3)(RNG.Simple(42L)) === ints(3)(RNG.Simple(42L)))
+  }
 }

@@ -92,4 +92,16 @@ object RNG {
       val (b, r2) = rb(r1)
       (f(a, b), r2)
     }
+
+  // Exercise 6.7
+  // Hard: If you can combine two RNG transitions, you should be able to combine a whole
+  // list of them. Implement sequence for combining a List of transitions into a single
+  // transition. Use it to reimplement the ints function you wrote before. For the latter,
+  // you can use the standard library function List.fill(n)(x) to make a list with x
+  // repeated n times.
+  def sequence[A](fs: List[Rand[A]]): Rand[List[A]] =
+    // rng => fs.foldRight((Nil: List[A], rng))((el, acc) => (el(acc._2)._1 :: acc._1, el(acc._2)._2))
+    fs.foldRight(unit(Nil: List[A]))((el, acc) => map2(el, acc)(_ :: _))
+
+  def intsRand(count: Int): Rand[List[Int]] = sequence(List.fill(count)(int))
 }
