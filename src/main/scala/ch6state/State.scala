@@ -81,4 +81,15 @@ object RNG {
   // Use map to reimplement double in a more elegant way. See exercise 6.2.
   def doubleRand: Rand[Double] =
     map(nonNegativeInt)(_ / (Int.MaxValue.toDouble + 1))
+
+  // Exercise 6.6
+  // Write the implementation of map2 based on the following signature. This
+  // function takes two actions, ra and rb, and a function f for combining their
+  // results, and returns a new action that combines them:
+  def map2[A,B,C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] =
+    rng => {
+      val (a, r1) = ra(rng)
+      val (b, r2) = rb(r1)
+      (f(a, b), r2)
+    }
 }
