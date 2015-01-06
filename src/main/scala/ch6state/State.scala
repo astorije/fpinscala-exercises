@@ -14,6 +14,18 @@ object RNG {
     }
   }
 
+  type Rand[+A] = RNG => (A, RNG)
+
+  val int: Rand[Int] = _.nextInt
+
+  def unit[A](a: A): Rand[A] = rng => (a, rng)
+
+  def map[A,B](s: Rand[A])(f: A => B): Rand[B] =
+    rng => {
+      val (a, rng2) = s(rng)
+      (f(a), rng2)
+    }
+
   // Exercise 6.1
   // Write a function that uses RNG.nextInt to generate a random integer between
   // 0 and Int.maxValue (inclusive). Make sure to handle the corner case when
@@ -64,4 +76,9 @@ object RNG {
       (i :: l, r2)
     }
   }
+
+  // Exercise 6.5
+  // Use map to reimplement double in a more elegant way. See exercise 6.2.
+  def doubleRand: Rand[Double] =
+    map(nonNegativeInt)(_ / (Int.MaxValue.toDouble + 1))
 }
