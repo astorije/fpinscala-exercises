@@ -55,4 +55,14 @@ class StateSuite extends FunSuite {
   test("intsRand") {
     assert(intsRand(3)(RNG.Simple(42L)) === ints(3)(RNG.Simple(42L)))
   }
+
+  // Exercise 6.8
+  test("flatMap") {
+    assert(flatMap(unit("foo"))(a => unit(a + "bar"))(RNG.Simple(0L))._1 === "foobar")
+  }
+
+  // Exercise 6.8
+  test("nonNegativeLessThan") {
+    assert(nonNegativeLessThan(2)(RNG.Simple(42L))._1 === 1)
+  }
 }
