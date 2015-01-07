@@ -65,4 +65,15 @@ class StateSuite extends FunSuite {
   test("nonNegativeLessThan") {
     assert(nonNegativeLessThan(2)(RNG.Simple(42L))._1 === 1)
   }
+
+  // Exercise 6.9
+  test("map2ViaFlatMap") {
+    assert(map2ViaFlatMap(unit(1), unit(2))(_ + _)(RNG.Simple(0L))._1 === 3)
+    assert(map2ViaFlatMap(nonNegativeInt, double)((_, _))(RNG.Simple(42L)) === intDouble(RNG.Simple(42L)))
+  }
+
+  // Exercise 6.9
+  test("mapViaFlatMap") {
+    assert(mapViaFlatMap(unit(1))(_ * 2)(RNG.Simple(0L)) === map(unit(1))(_ * 2)(RNG.Simple(0L)))
+  }
 }
