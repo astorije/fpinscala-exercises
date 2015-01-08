@@ -76,4 +76,30 @@ class StateSuite extends FunSuite {
   test("mapViaFlatMap") {
     assert(mapViaFlatMap(unit(1))(_ * 2)(RNG.Simple(0L)) === map(unit(1))(_ * 2)(RNG.Simple(0L)))
   }
+
+  // Exercise 6.10
+  test("State.unit") {
+    assert(State.unit(1).run(42) === (1, 42))
+  }
+
+  // Exercise 6.10
+  test("State.sequence") {
+    assert(State.sequence[Int, Int](List(State.unit(1), State.unit(2))).run(42) === (List(1, 2), 42))
+  }
+
+  // Exercise 6.10
+  test("State.map") {
+    assert(State[Int, Int](s => (2, s + 1)).map(_ * 3).run(0) === (6, 1))
+  }
+
+  // Exercise 6.10
+  test("State.map2") {
+    var s = State[Int, Int](s => (2, s + 1))
+    assert(s.map2(s)(_ * _).run(0) === (4, 2))
+  }
+
+  // Exercise 6.10
+  test("State.flatMap") {
+    assert(State[Int, Int](s => (5, s + 1)).flatMap(a => State.unit(a)).run(0) === (5, 1))
+  }
 }

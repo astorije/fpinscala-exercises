@@ -131,3 +131,29 @@ object RNG {
     // flatMap(ra)(a => flatMap(rb)(b => unit(f(a, b))))
     flatMap(ra)(a => map(rb)(b => f(a, b)))
 }
+
+import State._
+
+// Exercise 6.10
+// Generalize the functions unit, map, map2, flatMap, and sequence. Add them as meth-
+// ods on the State case class where possible. Otherwise you should put them in a State
+// companion object.
+case class State[S,+A](run: S => (A,S)) {
+  def map[B](f: A => B): State[S, B] =
+    flatMap(a => unit(f(a)))
+
+  def map2[B, C](sb: State[S, B])(f: (A, B) => C): State[S, C] =
+    flatMap(a => sb.map(b => f(a, b)))
+
+  def flatMap[B](f: A => State[S, B]): State[S, B] = State(s => {
+    val (a, s1) = run(s)
+    f(a).run(s1)
+  })
+}
+
+object State {
+  def unit[S, A](a: A): State[S, A] = State(s => (a, s))
+  def sequence[S, A](l: List[State[S, A]]): State[S, List[A]] =
+    // l.foldRight(unit[S, List[A]](Nil))((el, acc) => el.map2(acc)(_ :: _))
+    l.reverse.foldLeft(unit[S, List[A]](Nil))((acc, el) => el.map2(acc)(_ :: _))
+}
