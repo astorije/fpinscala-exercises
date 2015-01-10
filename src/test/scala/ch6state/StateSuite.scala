@@ -3,6 +3,7 @@ package ch6state
 import org.scalatest.FunSuite
 
 import RNG._
+import CandyDispenser._
 
 class StateSuite extends FunSuite {
   // Exercise 6.1
@@ -101,5 +102,13 @@ class StateSuite extends FunSuite {
   // Exercise 6.10
   test("State.flatMap") {
     assert(State[Int, Int](s => (5, s + 1)).flatMap(a => State.unit(a)).run(0) === (5, 1))
+  }
+
+  // Exercise 6.11
+  test("simulateMachine") {
+    assert(simulateMachine(List(Coin)).run(Machine(true, 5, 10))._1 === (11, 5))
+    assert(simulateMachine(List(Turn)).run(Machine(true, 5, 10))._1 === (10, 5))
+    assert(simulateMachine(List(Coin, Turn)).run(Machine(true, 5, 10))._1 === (11, 4))
+    assert(simulateMachine(List(Coin, Turn, Coin, Turn, Coin, Turn, Coin, Turn)).run(Machine(true, 5, 10))._1 === (14, 1))
   }
 }
