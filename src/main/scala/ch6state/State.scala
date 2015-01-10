@@ -156,6 +156,14 @@ object State {
   def sequence[S, A](l: List[State[S, A]]): State[S, List[A]] =
     // l.foldRight(unit[S, List[A]](Nil))((el, acc) => el.map2(acc)(_ :: _))
     l.reverse.foldLeft(unit[S, List[A]](Nil))((acc, el) => el.map2(acc)(_ :: _))
+
+    def modify[S](f: S => S): State[S, Unit] = for {
+      s <- get
+      _ <- set(f(s))
+    } yield ()
+
+    def get[S]: State[S, S] = State(s => (s, s))
+    def set[S](s: S): State[S, Unit] = State(_ => ((), s))
 }
 
 // Exercise 6.11
@@ -180,18 +188,18 @@ object State {
 sealed trait Input
 case object Coin extends Input
 case object Turn extends Input
-case class Machine(locked: Boolean, candies: Int, coins: Int)
+case class Machine(locked: Boolean, candies: Int, coins: Int) {
+  def interact(input: Input) = input match {
+    case _ if candies == 0 => this
+    case Coin if locked => Machine(false, candies, coins + 1)
+    case Turn if !locked => Machine(true, candies - 1, coins)
+    case _ => this
+  }
+}
 
 object CandyDispenser {
-  def simulateMachine(inputs: List[Input]): State[Machine, (Int, Int)] = {
-    State(machine => {
-      val endMachine = inputs.foldLeft(machine)((m, i) => (m, i) match {
-        case (Machine(_, 0, _), _) => m
-        case (Machine(true, candies, coins), Coin) => Machine(false, candies, coins + 1)
-        case (Machine(false, candies, coins), Turn) => Machine(true, candies - 1, coins)
-        case _ => m
-      })
-      ((endMachine.coins, endMachine.candies), endMachine)
-    })
-  }
+  def simulateMachine(inputs: List[Input]): State[Machine, (Int, Int)] = for {
+    _ <- sequence(inputs.map(input => modify[Machine](_.interact(input))))
+    machine <- get
+  } yield (machine.coins, machine.candies)
 }
