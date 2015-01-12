@@ -105,7 +105,32 @@ class StateSuite extends FunSuite {
   }
 
   // Exercise 6.11
-  test("simulateMachine") {
+  test("simulateMachine: respect rules (machine state)") {
+    val lockedMachine = Machine(true, 10, 20)
+    val unlockedMachine = Machine(false, 10, 20)
+    val emptyLockedMachine = Machine(true, 0, 20)
+    val emptyUnlockedMachine = Machine(false, 0, 20)
+
+    // Inserting a coin into a locked machine will cause it to unlock if there’s any candy left.
+    assert(simulateMachine(List(Coin)).run(lockedMachine)._2.locked === false)
+
+    // Turning the knob on an unlocked machine will cause it to dispense candy and become locked.
+    assert(simulateMachine(List(Turn)).run(unlockedMachine)._2.locked === true)
+    assert(simulateMachine(List(Turn)).run(unlockedMachine)._2.candies === 9)
+
+    // Turning the knob on a locked machine or inserting a coin into an unlocked machine does nothing.
+    assert(simulateMachine(List(Turn)).run(lockedMachine)._2 === lockedMachine)
+    assert(simulateMachine(List(Coin)).run(unlockedMachine)._2 === unlockedMachine)
+
+    // A machine that’s out of candy ignores all inputs.
+    assert(simulateMachine(List(Turn)).run(emptyLockedMachine)._2 === emptyLockedMachine)
+    assert(simulateMachine(List(Turn)).run(emptyUnlockedMachine)._2 === emptyUnlockedMachine)
+    assert(simulateMachine(List(Coin)).run(emptyLockedMachine)._2 === emptyLockedMachine)
+    assert(simulateMachine(List(Coin)).run(emptyUnlockedMachine)._2 === emptyUnlockedMachine)
+  }
+
+  // Exercise 6.11
+  test("simulateMachine: return value") {
     assert(simulateMachine(List(Coin)).run(Machine(true, 5, 10))._1 === (11, 5))
     assert(simulateMachine(List(Turn)).run(Machine(true, 5, 10))._1 === (10, 5))
     assert(simulateMachine(List(Coin, Turn)).run(Machine(true, 5, 10))._1 === (11, 4))
