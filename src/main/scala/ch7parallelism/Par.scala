@@ -14,7 +14,7 @@ object Par {
 
   def lazyUnit[A](a: => A): Par[A] = fork(unit(a))
 
-  def run[A](a: Par[A]): A = ???
+  def run[A](s: ExecutorService)(a: Par[A]): Future[A] = a(s)
 
   // Exercise 7.1
   // Par.map2 is a new higher-order function for combining the result of two
