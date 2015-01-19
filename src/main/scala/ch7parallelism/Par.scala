@@ -3,7 +3,10 @@ package ch7parallelism
 import java.util.concurrent._
 
 object Par {
-  type Par[A] = Any
+  // Exercise 7.2
+  // Before continuing, try to come up with representations for Par that make it
+  // possible to implement the functions of our API.
+  type Par[A] = ExecutorService => Future[A]
 
   def unit[A](a: A): Par[A] = ???
 
