@@ -40,6 +40,9 @@ class EitherSuite extends FunSuite {
   // Exercise 4.7
   test("traverse") {
     assert(traverse(List("1", "2", "3"))(s => Try { s.toInt }) === Right(List(1, 2, 3)))
-    assert(traverse(List("1", "b", "3"))(s => Try { s.toInt }) === Left()) // FIXME: How can I test this?
+    assert((traverse(List("1", "b", "3"))(s => Try { s.toInt }) match {
+      case Left(_) => true
+      case _ => false
+    }) === true)
   }
 }
