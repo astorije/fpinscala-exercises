@@ -40,4 +40,36 @@ object Par {
       val bf = b(es)
       UnitFuture(f(af.get, bf.get))
     }
+
+  // Exercise 7.3
+  // Hard: Fix the implementation of map2 so that it respects the contract of
+  // timeouts on Future.
+  private case class Map2Future[A, B, C](fa: Future[A], fb: Future[B], f: (A, B) => C) extends Future[C] {
+    @volatile var cache: Option[C] = None
+    def isDone = cache.isDefined
+    def get(timeout: Long, units: TimeUnit) = compute(TimeUnit.MILLISECONDS.convert(timeout, units))
+    def get = compute(Long.MaxValue)
+    def isCancelled = fa.isCancelled || fb.isCancelled
+    def cancel(evenIfRunning: Boolean): Boolean = fa.cancel(evenIfRunning) || fb.cancel(evenIfRunning)
+
+    private def compute(timeoutMs: Long): C = cache match {
+      case Some(c) => c
+      case None => {
+        val start = System.currentTimeMillis
+        val ra = fa.get(timeoutMs, TimeUnit.MILLISECONDS)
+        val delta = System.currentTimeMillis - start
+        val rb = fb.get(timeoutMs - delta, TimeUnit.MILLISECONDS)
+        val r = f(ra, rb)
+        cache = Some(r)
+        r
+      }
+    }
+  }
+
+  def timeoutMap2[A, B, C](a: Par[A], b: Par[B])(f: (A, B) => C): Par[C] =
+    (es: ExecutorService) => {
+      val af = a(es)
+      val bf = b(es)
+      Map2Future(af, bf, f)
+    }
 }
